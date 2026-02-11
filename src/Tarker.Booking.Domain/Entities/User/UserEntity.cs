@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Tarker.Booking.Domain.Entities.Booking;
 
 namespace Tarker.Booking.Domain.Entities.User
 {
@@ -10,5 +11,6 @@ namespace Tarker.Booking.Domain.Entities.User
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Password { get; set; }
+        public ICollection<BookingEntity> Bookings { get; set; }
     }
 }
