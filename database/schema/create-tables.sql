@@ -1,12 +1,12 @@
--- Create table user
+-- Create table users
 IF NOT EXISTS ( 
 	SELECT 1 
 	FROM sys.tables 
-	WHERE name = 'User' 
+	WHERE name = 'Users' 
 	AND schema_id = SCHEMA_ID('dbo') 
 ) 
 BEGIN 
-	CREATE TABLE [User] 
+	CREATE TABLE [Users] 
 	( 
 		UserId INT PRIMARY KEY IDENTITY, 
 		FirstName VARCHAR(50) NOT NULL, 
@@ -16,15 +16,15 @@ BEGIN
 	) 
 END
 
--- Create table customer
+-- Create table customers
 IF NOT EXISTS ( 
 	SELECT 1 
 	FROM sys.tables 
-	WHERE name = 'Customer' 
+	WHERE name = 'Customers' 
 	AND schema_id = SCHEMA_ID('dbo') 
 ) 
 BEGIN 
-	CREATE TABLE [Customer]
+	CREATE TABLE [Customers]
 	( 
 		CustomerId INT PRIMARY KEY IDENTITY, 
 		FullName VARCHAR(50) NOT NULL, 
@@ -32,15 +32,15 @@ BEGIN
 	) 
 END
 
--- Create table booking
+-- Create table bookings
 IF NOT EXISTS ( 
 	SELECT 1 
 	FROM sys.tables 
-	WHERE name = 'Booking' 
+	WHERE name = 'Bookings' 
 	AND schema_id = SCHEMA_ID('dbo') 
 ) 
 BEGIN 
-	CREATE TABLE [Booking] 
+	CREATE TABLE [Bookings] 
 	( 
 		BookingId INT PRIMARY KEY IDENTITY, 
 		RegisterDay DATETIME2 NOT NULL, 
@@ -48,7 +48,7 @@ BEGIN
 		Type VARCHAR(50) NOT NULL,
 		UserId INT NOT NULL,
 		CustomerId INT NOT NULL,
-		FOREIGN KEY (UserId) REFERENCES [User](UserId),
-		FOREIGN KEY (CustomerId) REFERENCES [Customer](CustomerId),
+		FOREIGN KEY (UserId) REFERENCES [Users](UserId),
+		FOREIGN KEY (CustomerId) REFERENCES [Customers](CustomerId),
 	) 
 END
