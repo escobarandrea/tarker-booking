@@ -1,0 +1,17 @@
+<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/API/">
+    <Project Path="src/Taker.Booking.Api/Tarker.Booking.Api.csproj" Id="2dcb497a-3150-4d0d-a313-e4287fc40ca0" />
+  </Folder>
+  <Folder Name="/src/Common/">
+    <Project Path="src/Tarker.Booking.Common/Tarker.Booking.Common.csproj" />
+  </Folder>
+  <Folder Name="/src/Core/">
+    <Project Path="src/Tarker.Booking.Application/Tarker.Booking.Application.csproj" Id="853e9265-584d-4bc6-ab37-efde746f6ef3" />
+    <Project Path="src/Tarker.Booking.Domain/Tarker.Booking.Domain.csproj" Id="dae5b2d7-801e-4bcf-9978-662fb66493b1" />
+  </Folder>
+  <Folder Name="/src/Infraestructure/">
+    <Project Path="src/Tarker.Booking.External/Tarker.Booking.External.csproj" Id="7c900e60-cbc1-49b3-b5e5-5244b29b33dd" />
+    <Project Path="src/Tarker.Booking.Persistence/Tarker.Booking.Persistence.csproj" Id="2875ab04-7855-46d3-b4c3-0b146dc6194c" />
+  </Folder>
+</Solution>
