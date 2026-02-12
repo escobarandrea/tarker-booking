@@ -1,13 +1,17 @@
 using Microsoft.EntityFrameworkCore;
+using Tarker.Booking.Api;
+using Tarker.Booking.Application;
 using Tarker.Booking.Application.Interfaces;
+using Tarker.Booking.Common;
 using Tarker.Booking.Domain.Entities.User;
+using Tarker.Booking.External;
+using Tarker.Booking.Persistence;
 using Tarker.Booking.Persistence.Database;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddWebApi().AddCommon().AddApplication().AddExternal(builder.Configuration).AddPersistence(builder.Configuration);
 
 // Add services to the container.
-builder.Services.AddDbContext<DatabaseService>(options => options.UseSqlServer(builder.Configuration["SQLConnectionString"]));
-builder.Services.AddScoped<IDatabaseService, DatabaseService>();
 
 var app = builder.Build();
 
