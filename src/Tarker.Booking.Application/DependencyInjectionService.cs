@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using Tarker.Booking.Application.Configuration;
 using Tarker.Booking.Application.Database.User.Commands.CreateUser;
+using Tarker.Booking.Application.Database.User.Commands.UpdateUser;
 
 namespace Tarker.Booking.Application
 {
@@ -14,6 +15,7 @@ namespace Tarker.Booking.Application
         {
             services.AddAutoMapper(cfg => { }, typeof(MapperProfile));
             services.AddTransient<ICreateUserCommand, CreateUserCommand>();
+            services.AddTransient<IUpdateUserCommand, UpdateUserCommand>();
             return services;
         }
     }
