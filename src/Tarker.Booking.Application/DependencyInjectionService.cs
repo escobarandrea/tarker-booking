@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Tarker.Booking.Application.Configuration;
+using Tarker.Booking.Application.Database.User.Commands.CreateUser;
 
 namespace Tarker.Booking.Application
 {
@@ -12,7 +13,7 @@ namespace Tarker.Booking.Application
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
             services.AddAutoMapper(cfg => { }, typeof(MapperProfile));
-
+            services.AddTransient<ICreateUserCommand, CreateUserCommand>();
             return services;
         }
     }
