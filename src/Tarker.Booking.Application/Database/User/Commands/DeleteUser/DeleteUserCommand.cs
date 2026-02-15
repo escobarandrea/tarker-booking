@@ -16,7 +16,7 @@ namespace Tarker.Booking.Application.Database.User.Commands.DeleteUser
 
         public async Task<bool> Execute(int userId)
         {
-            var entity = await _databaseService.Users.FirstOrDefaultAsync(u => u.UserId == userId);
+            var entity = await _databaseService.Users.FirstOrDefaultAsync(user => user.UserId == userId);
 
             if (entity == null)
                 return false;
