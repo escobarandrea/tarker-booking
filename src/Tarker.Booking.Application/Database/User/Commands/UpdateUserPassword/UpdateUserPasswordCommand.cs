@@ -5,25 +5,18 @@ using System.Text;
 
 namespace Tarker.Booking.Application.Database.User.Commands.UpdateUserPassword
 {
-    public class UpdateUserPasswordCommand : IUpdateUserPasswordCommand
+    public class UpdateUserPasswordCommand(IDatabaseService databaseService) : IUpdateUserPasswordCommand
     {
-        private readonly IDatabaseService _databaseService;
-
-        public UpdateUserPasswordCommand(IDatabaseService databaseService)
-        {
-            _databaseService = databaseService;
-        }
-
         public async Task<bool> Execute(UpdateUserPasswordModel model)
         {
-            var entity = await _databaseService.Users.FirstOrDefaultAsync(user => user.UserId == model.UserId);
+            var entity = await databaseService.Users.FirstOrDefaultAsync(user => user.UserId == model.UserId);
 
             if (entity == null)
                 return false;
 
             entity.Password = model.Password;            
 
-            return await _databaseService.SaveAsync();
+            return await databaseService.SaveAsync();
         }
     }
 }

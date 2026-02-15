@@ -5,24 +5,17 @@ using System.Text;
 
 namespace Tarker.Booking.Application.Database.User.Commands.DeleteUser
 {
-    public class DeleteUserCommand : IDeleteUserCommand
+    public class DeleteUserCommand(IDatabaseService databaseService) : IDeleteUserCommand
     {
-        private readonly IDatabaseService _databaseService;
-
-        public DeleteUserCommand(IDatabaseService databaseService)
-        {
-            _databaseService = databaseService;
-        }
-
         public async Task<bool> Execute(int userId)
         {
-            var entity = await _databaseService.Users.FirstOrDefaultAsync(user => user.UserId == userId);
+            var entity = await databaseService.Users.FirstOrDefaultAsync(user => user.UserId == userId);
 
             if (entity == null)
                 return false;
 
-            _databaseService.Users.Remove(entity);
-            return await _databaseService.SaveAsync();
+            databaseService.Users.Remove(entity);
+            return await databaseService.SaveAsync();
         }
     }
 }
