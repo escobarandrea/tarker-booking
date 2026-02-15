@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Tarker.Booking.Application.Interfaces;
+using Tarker.Booking.Application.Database;
 using Tarker.Booking.Domain.Entities.Booking;
 using Tarker.Booking.Domain.Entities.Customer;
 using Tarker.Booking.Domain.Entities.User;

@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Tarker.Booking.Application.Interfaces;
+using Tarker.Booking.Application.Database;
 using Tarker.Booking.Persistence.Database;
 
 namespace Tarker.Booking.Persistence

@@ -11,12 +11,7 @@ namespace Tarker.Booking.Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
-            var mapper = new MapperConfiguration(config =>
-            {
-                config.AddProfile(new MapperProfile())
-            });
-
-            services.AddSingleton(mapper.CreateMapper());
+            services.AddAutoMapper(cfg => { }, typeof(MapperProfile));
 
             return services;
         }
