@@ -11,14 +11,16 @@ builder.Services.AddWebApi().AddCommon().AddApplication().AddExternal(builder.Co
 
 var app = builder.Build();
 
-// Test endpoints
-//app.MapPost("/test/users", async (CreateUserModel model, ICreateUserCommand service) =>
+//// Test endpoints
+//var users = app.MapGroup("/test/users");
+
+//users.MapPost("/", async (CreateUserModel model, ICreateUserCommand service) =>
 //{
 //    var result = await service.Execute(model);
 //    return Results.Ok(result);
 //});
 
-//app.MapPut("/test/users/{userId:int}", async (int userId, UpdateUserModel model, IUpdateUserCommand service) =>
+//users.MapPut("/{userId:int}", async (int userId, UpdateUserModel model, IUpdateUserCommand service) =>
 //{
 //    var updated = await service.Execute(model);
 
@@ -28,7 +30,7 @@ var app = builder.Build();
 //    return Results.NoContent();
 //});
 
-//app.MapDelete("test/users/{userId:int}", async (int userId, IDeleteUserCommand service) =>
+//users.MapDelete("/{userId:int}", async (int userId, IDeleteUserCommand service) =>
 //{
 //    var deleted = await service.Execute(userId);
 
@@ -38,7 +40,7 @@ var app = builder.Build();
 //    return Results.NoContent();
 //});
 
-//app.MapPatch("/test/users/{userId:int}/password", async (int userId, UpdateUserPasswordModel model, IUpdateUserPasswordCommand service) =>
+//users.MapPatch("/{userId:int}/password", async (int userId, UpdateUserPasswordModel model, IUpdateUserPasswordCommand service) =>
 //{
 //    var updated = await service.Execute(model);
 
@@ -46,6 +48,21 @@ var app = builder.Build();
 //        return Results.NotFound($"User with id {userId} was not found.");
 
 //    return Results.NoContent();
+//});
+
+//users.MapGet("/", async (IGetAllUserQuery service) =>
+//{
+//    return Results.Ok(service.Execute());
+//});
+
+//users.MapGet("/{userId:int}/", async (int userId, IGetUserByIdQuery service) =>
+//{
+//    return Results.Ok(service.Execute(userId));
+//});
+
+//users.MapGet("/search", async (string username, string password, IGetUserByUserNameAndPasswordQuery service) =>
+//{
+//    return Results.Ok(service.Execute(username, password));
 //});
 
 // Configure the HTTP request pipeline.
