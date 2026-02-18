@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Tarker.Booking.Application.Configuration;
+using Tarker.Booking.Application.Database.Customer.Commands.CreateCustomer;
 using Tarker.Booking.Application.Database.User.Commands.CreateUser;
 using Tarker.Booking.Application.Database.User.Commands.DeleteUser;
 using Tarker.Booking.Application.Database.User.Commands.UpdateUser;
@@ -15,6 +16,7 @@ namespace Tarker.Booking.Application
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
             services.AddAutoMapper(cfg => { }, typeof(MapperProfile));
+
             services.AddTransient<ICreateUserCommand, CreateUserCommand>();
             services.AddTransient<IUpdateUserCommand, UpdateUserCommand>();
             services.AddTransient<IDeleteUserCommand, DeleteUserCommand>();
@@ -22,6 +24,9 @@ namespace Tarker.Booking.Application
             services.AddTransient<IGetAllUserQuery, GetAllUserQuery>();
             services.AddTransient<IGetUserByIdQuery, GetUserByIdQuery>();
             services.AddTransient<IGetUserByUserNameAndPasswordQuery, GetUserByUserNameAndPasswordQuery>();
+
+            services.AddTransient<ICreateCustomerCommand, CreateCustomerCommand>();
+
             return services;
         }
     }
