@@ -1,5 +1,15 @@
 using Tarker.Booking.Api;
 using Tarker.Booking.Application;
+using Tarker.Booking.Application.Database.Customer.Commands.CreateCustomer;
+using Tarker.Booking.Application.Database.Customer.Commands.DeleteCustomer;
+using Tarker.Booking.Application.Database.Customer.Commands.UpdateCustomer;
+using Tarker.Booking.Application.Database.User.Commands.CreateUser;
+using Tarker.Booking.Application.Database.User.Commands.DeleteUser;
+using Tarker.Booking.Application.Database.User.Commands.UpdateUser;
+using Tarker.Booking.Application.Database.User.Commands.UpdateUserPassword;
+using Tarker.Booking.Application.Database.User.Queries.GetAllUser;
+using Tarker.Booking.Application.Database.User.Queries.GetUserById;
+using Tarker.Booking.Application.Database.User.Queries.GetUserByUserNameAndPassword;
 using Tarker.Booking.Common;
 using Tarker.Booking.External;
 using Tarker.Booking.Persistence;
@@ -12,58 +22,87 @@ builder.Services.AddWebApi().AddCommon().AddApplication().AddExternal(builder.Co
 var app = builder.Build();
 
 //// Test endpoints
-//var users = app.MapGroup("/test/users");
+var users = app.MapGroup("/test/users");
 
-//users.MapPost("/", async (CreateUserModel model, ICreateUserCommand service) =>
-//{
-//    var result = await service.Execute(model);
-//    return Results.Ok(result);
-//});
+users.MapPost("/", async (CreateUserModel model, ICreateUserCommand service) =>
+{
+    var result = await service.Execute(model);
+    return Results.Ok(result);
+});
 
-//users.MapPut("/{userId:int}", async (int userId, UpdateUserModel model, IUpdateUserCommand service) =>
-//{
-//    var updated = await service.Execute(model);
+users.MapPut("/{userId:int}", async (int userId, UpdateUserModel model, IUpdateUserCommand service) =>
+{
+    var updated = await service.Execute(model);
 
-//    if (updated == null)
-//        return Results.NotFound($"User with id {userId} was not found.");
+    if (updated == null)
+        return Results.NotFound($"User with id {userId} was not found.");
 
-//    return Results.NoContent();
-//});
+    return Results.NoContent();
+});
 
-//users.MapDelete("/{userId:int}", async (int userId, IDeleteUserCommand service) =>
-//{
-//    var deleted = await service.Execute(userId);
+users.MapDelete("/{userId:int}", async (int userId, IDeleteUserCommand service) =>
+{
+    var deleted = await service.Execute(userId);
 
-//    if (!deleted)
-//        return Results.NotFound($"User with id {userId} was not found.");
+    if (!deleted)
+        return Results.NotFound($"User with id {userId} was not found.");
 
-//    return Results.NoContent();
-//});
+    return Results.NoContent();
+});
 
-//users.MapPatch("/{userId:int}/password", async (int userId, UpdateUserPasswordModel model, IUpdateUserPasswordCommand service) =>
-//{
-//    var updated = await service.Execute(model);
+users.MapPatch("/{userId:int}/password", async (int userId, UpdateUserPasswordModel model, IUpdateUserPasswordCommand service) =>
+{
+    var updated = await service.Execute(model);
 
-//    if (updated == false)
-//        return Results.NotFound($"User with id {userId} was not found.");
+    if (updated == false)
+        return Results.NotFound($"User with id {userId} was not found.");
 
-//    return Results.NoContent();
-//});
+    return Results.NoContent();
+});
 
-//users.MapGet("/", async (IGetAllUserQuery service) =>
-//{
-//    return Results.Ok(service.Execute());
-//});
+users.MapGet("/", async (IGetAllUserQuery service) =>
+{
+    return Results.Ok(await service.Execute());
+});
 
-//users.MapGet("/{userId:int}/", async (int userId, IGetUserByIdQuery service) =>
-//{
-//    return Results.Ok(service.Execute(userId));
-//});
+users.MapGet("/{userId:int}/", async (int userId, IGetUserByIdQuery service) =>
+{
+    return Results.Ok(await service.Execute(userId));
+});
 
-//users.MapGet("/search", async (string username, string password, IGetUserByUserNameAndPasswordQuery service) =>
-//{
-//    return Results.Ok(service.Execute(username, password));
-//});
+users.MapGet("/search", async (string username, string password, IGetUserByUserNameAndPasswordQuery service) =>
+{
+    return Results.Ok(await service.Execute(username, password));
+});
+
+var customers = app.MapGroup("/test/customers");
+
+customers.MapPost("/", async (CreateCustomerModel model, ICreateCustomerCommand service) =>
+{
+    var result = await service.Execute(model);
+    return Results.Ok(result);
+});
+
+customers.MapPut("/{customerId:int}", async (int customerId, UpdateCustomerModel model, IUpdateCustomerCommand service) =>
+{
+    var updated = await service.Execute(model);
+
+    if (updated == null)
+        return Results.NotFound($"User with id {customerId} was not found.");
+
+    return Results.NoContent();
+});
+
+customers.MapDelete("/{customerId:int}", async (int customerId, IDeleteCustomerCommand service) =>
+{
+    var deleted = await service.Execute(customerId);
+
+    if (!deleted)
+        return Results.NotFound($"User with id {customerId} was not found.");
+
+    return Results.NoContent();
+});
+
 
 // Configure the HTTP request pipeline.
 
