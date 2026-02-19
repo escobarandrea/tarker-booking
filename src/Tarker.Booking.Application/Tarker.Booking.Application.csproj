@@ -18,7 +18,6 @@
   <ItemGroup>
     <Folder Include="Database\Booking\Commands\" />
     <Folder Include="Database\Booking\Queries\" />
-    <Folder Include="Database\Customer\Queries\GetAllCustomers\" />
   </ItemGroup>
 
 </Project>

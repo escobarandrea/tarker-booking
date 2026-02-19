@@ -30,6 +30,7 @@ namespace Tarker.Booking.Application
             services.AddTransient<ICreateCustomerCommand, CreateCustomerCommand>();
             services.AddTransient<IUpdateCustomerCommand, UpdateCustomerCommand>();
             services.AddTransient<IDeleteCustomerCommand, DeleteCustomerCommand>();
+            services.AddTransient<IGetAllUsersQuery, GetAllUsersQuery>();
 
             return services;
         }
