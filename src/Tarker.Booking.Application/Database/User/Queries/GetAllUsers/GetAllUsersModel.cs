@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using Tarker.Booking.Domain.Entities.Booking;
 
-namespace Tarker.Booking.Application.Database.User.Queries.GetAllUser
+namespace Tarker.Booking.Application.Database.User.Queries.GetAllUsers
 {
-    public class GetAllUserModel
+    public class GetAllUsersModel
     {
         public int UserId { get; set; }
         public string FirstName { get; set; }
