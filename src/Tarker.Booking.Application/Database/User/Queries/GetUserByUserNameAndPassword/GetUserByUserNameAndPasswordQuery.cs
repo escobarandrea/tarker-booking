@@ -10,7 +10,7 @@ namespace Tarker.Booking.Application.Database.User.Queries.GetUserByUserNameAndP
     {
         public async Task<GetUserByUserNameAndPasswordModel> Execute(string userName, string password)
         {
-            var entity = await databaseService.Users.FirstOrDefaultAsync(user => user.UserName.Equals(userName, StringComparison.OrdinalIgnoreCase) && user.Password == password);
+            var entity = await databaseService.Users.FirstOrDefaultAsync(user => EF.Functions.Like(user.UserName, userName) && user.Password == password);
             return mapper.Map<GetUserByUserNameAndPasswordModel>(entity);
         }
     }
