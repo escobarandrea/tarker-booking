@@ -7,7 +7,7 @@ using Tarker.Booking.Application.Database.User.Commands.CreateUser;
 using Tarker.Booking.Application.Database.User.Commands.DeleteUser;
 using Tarker.Booking.Application.Database.User.Commands.UpdateUser;
 using Tarker.Booking.Application.Database.User.Commands.UpdateUserPassword;
-using Tarker.Booking.Application.Database.User.Queries.GetAllUser;
+using Tarker.Booking.Application.Database.User.Queries.GetAllUsers;
 using Tarker.Booking.Application.Database.User.Queries.GetUserById;
 using Tarker.Booking.Application.Database.User.Queries.GetUserByUserNameAndPassword;
 using Tarker.Booking.Common;
@@ -60,7 +60,7 @@ users.MapPatch("/{userId:int}/password", async (int userId, UpdateUserPasswordMo
     return Results.NoContent();
 });
 
-users.MapGet("/", async (IGetAllUserQuery service) =>
+users.MapGet("/", async (IGetAllUsersQuery service) =>
 {
     return Results.Ok(await service.Execute());
 });
