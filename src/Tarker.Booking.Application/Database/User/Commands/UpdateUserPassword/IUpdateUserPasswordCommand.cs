@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Tarker.Booking.Application.Database.User.Commands.UpdateUserPassword
+﻿namespace Tarker.Booking.Application.Database.User.Commands.UpdateUserPassword
 {
     public interface IUpdateUserPasswordCommand
     {

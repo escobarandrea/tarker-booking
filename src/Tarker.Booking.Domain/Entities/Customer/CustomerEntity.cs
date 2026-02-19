@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Tarker.Booking.Domain.Entities.Booking;
+﻿using Tarker.Booking.Domain.Entities.Booking;
 
 namespace Tarker.Booking.Domain.Entities.Customer
 {

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Tarker.Booking.Domain.Entities.Customer;
+﻿using Tarker.Booking.Domain.Entities.Customer;
 using Tarker.Booking.Domain.Entities.User;
 using Tarker.Booking.Domain.Enums;
 

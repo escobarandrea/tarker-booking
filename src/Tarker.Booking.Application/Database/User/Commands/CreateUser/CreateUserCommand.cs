@@ -1,7 +1,4 @@
 ﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Tarker.Booking.Domain.Entities.User;
 
 namespace Tarker.Booking.Application.Database.User.Commands.CreateUser

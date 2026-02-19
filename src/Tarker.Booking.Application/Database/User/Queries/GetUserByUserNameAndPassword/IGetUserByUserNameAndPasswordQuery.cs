@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Tarker.Booking.Application.Database.User.Queries.GetUserByUserNameAndPassword
+﻿namespace Tarker.Booking.Application.Database.User.Queries.GetUserByUserNameAndPassword
 {
     public interface IGetUserByUserNameAndPasswordQuery
     {

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Tarker.Booking.Application.Database.Customer.Queries.GetAllCustomers
+﻿namespace Tarker.Booking.Application.Database.Customer.Queries.GetAllCustomers
 {
     public class GetAllCustomersModel
     {
