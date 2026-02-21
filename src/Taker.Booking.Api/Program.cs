@@ -28,6 +28,127 @@ builder.Services.AddWebApi().AddCommon().AddApplication().AddExternal(builder.Co
 
 var app = builder.Build();
 
+//// Test endpoints
+var users = app.MapGroup("/test/users");
+
+users.MapPost("/", async (CreateUserModel model, ICreateUserCommand service) =>
+{
+    var result = await service.Execute(model);
+    return Results.Ok(result);
+});
+
+users.MapPut("/{userId:int}", async (int userId, UpdateUserModel model, IUpdateUserCommand service) =>
+{
+    var updated = await service.Execute(model);
+
+    if (updated == null)
+        return Results.NotFound($"User with id {userId} was not found.");
+
+    return Results.NoContent();
+});
+
+users.MapDelete("/{userId:int}", async (int userId, IDeleteUserCommand service) =>
+{
+    var deleted = await service.Execute(userId);
+
+    if (!deleted)
+        return Results.NotFound($"User with id {userId} was not found.");
+
+    return Results.NoContent();
+});
+
+users.MapPatch("/{userId:int}/password", async (int userId, UpdateUserPasswordModel model, IUpdateUserPasswordCommand service) =>
+{
+    var updated = await service.Execute(model);
+
+    if (updated == false)
+        return Results.NotFound($"User with id {userId} was not found.");
+
+    return Results.NoContent();
+});
+
+users.MapGet("/", async (IGetAllUsersQuery service) =>
+{
+    return Results.Ok(await service.Execute());
+});
+
+users.MapGet("/{userId:int}/", async (int userId, IGetUserByIdQuery service) =>
+{
+    return Results.Ok(await service.Execute(userId));
+});
+
+users.MapGet("/search", async (string username, string password, IGetUserByUserNameAndPasswordQuery service) =>
+{
+    return Results.Ok(await service.Execute(username, password));
+});
+
+var customers = app.MapGroup("/test/customers");
+
+customers.MapPost("/", async (CreateCustomerModel model, ICreateCustomerCommand service) =>
+{
+    var result = await service.Execute(model);
+    return Results.Ok(result);
+});
+
+customers.MapPut("/{customerId:int}", async (int customerId, UpdateCustomerModel model, IUpdateCustomerCommand service) =>
+{
+    var updated = await service.Execute(model);
+
+    if (updated == null)
+        return Results.NotFound($"User with id {customerId} was not found.");
+
+    return Results.NoContent();
+});
+
+customers.MapDelete("/{customerId:int}", async (int customerId, IDeleteCustomerCommand service) =>
+{
+    var deleted = await service.Execute(customerId);
+
+    if (!deleted)
+        return Results.NotFound($"User with id {customerId} was not found.");
+
+    return Results.NoContent();
+});
+
+customers.MapGet("/", async (IGetAllCustomersQuery service) =>
+{
+    return Results.Ok(await service.Execute());
+});
+
+customers.MapGet("/{customerId:int}/", async (int customerId, IGetCustomerByIdQuery service) =>
+{
+    return Results.Ok(await service.Execute(customerId));
+});
+
+customers.MapGet("/search", async (string documentNumber, IGetCustomerByDocumentNumberQuery service) =>
+{
+    return Results.Ok(await service.Execute(documentNumber));
+});
+
+var bookings = app.MapGroup("/test/bookings");
+
+bookings.MapPost("/", async (CreateBookingModel model, ICreateBookingCommand service) =>
+{
+    var result = await service.Execute(model);
+    return Results.Ok(result);
+});
+
+bookings.MapGet("/", async (IGetAllBookingsQuery service) =>
+{
+    return Results.Ok(await service.Execute());
+});
+
+bookings.MapGet("/search/by-document", async (string documentNumber, IGetBookingsByDocumentNumberQuery service) =>
+{
+    return Results.Ok(await service.Execute(documentNumber));
+});
+
+bookings.MapGet("/search/by-type", async (string type, IGetBookingsByTypeQuery service) =>
+{
+    return Results.Ok(await service.Execute(type));
+});
+
+
 // Configure the HTTP request pipeline.
 
 app.UseHttpsRedirection();
