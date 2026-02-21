@@ -3,6 +3,9 @@ using Tarker.Booking.Application;
 using Tarker.Booking.Application.Database.Customer.Commands.CreateCustomer;
 using Tarker.Booking.Application.Database.Customer.Commands.DeleteCustomer;
 using Tarker.Booking.Application.Database.Customer.Commands.UpdateCustomer;
+using Tarker.Booking.Application.Database.Customer.Queries.GetAllCustomers;
+using Tarker.Booking.Application.Database.Customer.Queries.GetCustomerByDocumentNumber;
+using Tarker.Booking.Application.Database.Customer.Queries.GetCustomerById;
 using Tarker.Booking.Application.Database.User.Commands.CreateUser;
 using Tarker.Booking.Application.Database.User.Commands.DeleteUser;
 using Tarker.Booking.Application.Database.User.Commands.UpdateUser;
@@ -101,6 +104,21 @@ customers.MapDelete("/{customerId:int}", async (int customerId, IDeleteCustomerC
         return Results.NotFound($"User with id {customerId} was not found.");
 
     return Results.NoContent();
+});
+
+customers.MapGet("/", async (IGetAllCustomersQuery service) =>
+{
+    return Results.Ok(await service.Execute());
+});
+
+customers.MapGet("/{customerId:int}/", async (int customerId, IGetCustomerByIdQuery service) =>
+{
+    return Results.Ok(await service.Execute(customerId));
+});
+
+customers.MapGet("/search", async (string documentNumber, IGetCustomerByDocumentNumberQuery service) =>
+{
+    return Results.Ok(await service.Execute(documentNumber));
 });
 
 
