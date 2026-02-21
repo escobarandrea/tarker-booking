@@ -14,7 +14,7 @@ namespace Tarker.Booking.Application.Database.Booking.Queries.GetAllBookings
                                     BookingId = bookings.BookingId,
                                     Code = bookings.Code,
                                     RegisterDate = bookings.RegisterDate,
-                                    Type = bookings.Type.ToString(),
+                                    Type = bookings.Type,
                                     CustomerFullName = customers.FullName,
                                     CustomerDocumentNumber = customers.DocumentNumber
                                     

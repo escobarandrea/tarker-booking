@@ -14,7 +14,7 @@ namespace Tarker.Booking.Application.Database.Booking.Queries.GetBookingsByDocum
                                 {
                                     Code = bookings.Code,
                                     RegisterDate = bookings.RegisterDate,
-                                    Type = bookings.Type.ToString()
+                                    Type = bookings.Type
                                 }
                                 ).ToListAsync();
             return result;
