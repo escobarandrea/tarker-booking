@@ -6,13 +6,13 @@ using Tarker.Booking.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddWebApi().AddCommon().AddApplication().AddExternal(builder.Configuration).AddPersistence(builder.Configuration);
-
+builder.Services.AddControllers();
 // Add services to the container.
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-
+app.MapControllers();
 app.UseHttpsRedirection();
 
 app.Run();
