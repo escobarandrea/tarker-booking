@@ -7,7 +7,7 @@ namespace Tarker.Booking.Application.Database.Customer.Queries.GetCustomerById
     {
         public async Task<GetCustomerByIdModel> Execute(int customerId)
         {
-            var entity = databaseService.Customers.FirstOrDefaultAsync(customer => customer.CustomerId == customerId);
+            var entity = await databaseService.Customers.FirstOrDefaultAsync(customer => customer.CustomerId == customerId);
             return mapper.Map<GetCustomerByIdModel>(entity);
         }
     }
