@@ -1,5 +1,9 @@
 using Tarker.Booking.Api;
 using Tarker.Booking.Application;
+using Tarker.Booking.Application.Database.Booking.Commands.CreateBooking;
+using Tarker.Booking.Application.Database.Booking.Queries.GetAllBookings;
+using Tarker.Booking.Application.Database.Booking.Queries.GetBookingsByDocumentNumber;
+using Tarker.Booking.Application.Database.Booking.Queries.GetBookingsByType;
 using Tarker.Booking.Application.Database.Customer.Commands.CreateCustomer;
 using Tarker.Booking.Application.Database.Customer.Commands.DeleteCustomer;
 using Tarker.Booking.Application.Database.Customer.Commands.UpdateCustomer;
@@ -119,6 +123,29 @@ customers.MapGet("/{customerId:int}/", async (int customerId, IGetCustomerByIdQu
 customers.MapGet("/search", async (string documentNumber, IGetCustomerByDocumentNumberQuery service) =>
 {
     return Results.Ok(await service.Execute(documentNumber));
+});
+
+var bookings = app.MapGroup("/test/bookings");
+
+bookings.MapPost("/", async (CreateBookingModel model, ICreateBookingCommand service) =>
+{
+    var result = await service.Execute(model);
+    return Results.Ok(result);
+});
+
+bookings.MapGet("/", async (IGetAllBookingsQuery service) =>
+{
+    return Results.Ok(await service.Execute());
+});
+
+bookings.MapGet("/search/by-document", async (string documentNumber, IGetBookingsByDocumentNumberQuery service) =>
+{
+    return Results.Ok(await service.Execute(documentNumber));
+});
+
+bookings.MapGet("/search/by-type", async (string type, IGetBookingsByTypeQuery service) =>
+{
+    return Results.Ok(await service.Execute(type));
 });
 
 
