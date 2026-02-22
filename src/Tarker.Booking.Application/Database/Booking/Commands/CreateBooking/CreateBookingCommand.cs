@@ -8,6 +8,7 @@ namespace Tarker.Booking.Application.Database.Booking.Commands.CreateBooking
         public async Task<CreateBookingModel> Execute(CreateBookingModel model)
         {
             var entity = mapper.Map<BookingEntity>(model);
+            entity.RegisterDate = DateTime.Now;
 
             await databaseService.Bookings.AddAsync(entity);
             await databaseService.SaveAsync();
