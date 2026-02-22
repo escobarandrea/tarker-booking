@@ -19,7 +19,7 @@ namespace Tarker.Booking.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateUserModel model, [FromServices] ICreateUserCommand createUserCommand)
         {
-            var data = await createUserCommand.Execute(model);
+            var data = await createUserCommand.ExecuteAsync(model);
 
             return CreatedAtAction(nameof(Create), ResponseApiService.Response(statusCode: StatusCodes.Status201Created, data: data));
         }
@@ -33,7 +33,7 @@ namespace Tarker.Booking.Api.Controllers
             if (id != model.UserId)
                 return BadRequest(ResponseApiService.Response(statusCode: StatusCodes.Status400BadRequest));
 
-            var data = await updateUserCommand.Execute(model);
+            var data = await updateUserCommand.ExecuteAsync(model);
 
             return Ok(ResponseApiService.Response(statusCode: StatusCodes.Status200OK, data: data));
         }
@@ -47,7 +47,7 @@ namespace Tarker.Booking.Api.Controllers
             if (id != model.UserId)
                 return BadRequest(ResponseApiService.Response(statusCode: StatusCodes.Status400BadRequest));
 
-            var data = await updateUserPasswordCommand.Execute(model);
+            var data = await updateUserPasswordCommand.ExecuteAsync(model);
 
             return Ok(ResponseApiService.Response(statusCode: StatusCodes.Status200OK, data: data));
         }
@@ -58,7 +58,7 @@ namespace Tarker.Booking.Api.Controllers
             if (id <= 0)
                 return BadRequest(ResponseApiService.Response(statusCode: StatusCodes.Status400BadRequest));
 
-            var data = await deleteUserCommand.Execute(id);
+            var data = await deleteUserCommand.ExecuteAsync(id);
 
             if (!data)
                 return NotFound(ResponseApiService.Response(statusCode: StatusCodes.Status404NotFound));
@@ -69,7 +69,7 @@ namespace Tarker.Booking.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll([FromServices] IGetAllUsersQuery getAllUsersQuery)
         {
-            var data = await getAllUsersQuery.Execute();
+            var data = await getAllUsersQuery.ExecuteAsync();
 
             if (data == null || data.Count == 0)
                 return NotFound(ResponseApiService.Response(statusCode: StatusCodes.Status404NotFound));
@@ -83,7 +83,7 @@ namespace Tarker.Booking.Api.Controllers
             if (id <= 0)
                 return NotFound(ResponseApiService.Response(statusCode: StatusCodes.Status404NotFound));
 
-            var data = await getUserByIdQuery.Execute(id);
+            var data = await getUserByIdQuery.ExecuteAsync(id);
 
             if (data == null)
                 return NotFound(ResponseApiService.Response(statusCode: StatusCodes.Status404NotFound));
@@ -94,7 +94,7 @@ namespace Tarker.Booking.Api.Controllers
         [HttpGet("search")]
         public async Task<IActionResult> GetByCredentials([FromQuery] string username, [FromQuery] string password, [FromServices] IGetUserByUserNameAndPasswordQuery getUserByUserNameAndPasswordQuery)
         {
-            var data = await getUserByUserNameAndPasswordQuery.Execute(username, password);
+            var data = await getUserByUserNameAndPasswordQuery.ExecuteAsync(username, password);
 
             if (data == null)
                 return NotFound(ResponseApiService.Response(statusCode: StatusCodes.Status404NotFound));

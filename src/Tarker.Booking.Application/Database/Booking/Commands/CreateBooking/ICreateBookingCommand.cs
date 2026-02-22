@@ -2,6 +2,6 @@
 {
     public interface ICreateBookingCommand
     {
-        Task<CreateBookingModel> Execute(CreateBookingModel model);
+        Task<CreateBookingModel> ExecuteAsync(CreateBookingModel model);
     }
 }

@@ -2,6 +2,6 @@
 {
     public interface ICreateUserCommand
     {
-        Task<CreateUserModel> Execute(CreateUserModel model);
+        Task<CreateUserModel> ExecuteAsync(CreateUserModel model);
     }
 }

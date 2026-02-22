@@ -2,6 +2,6 @@
 {
     public interface IDeleteCustomerCommand
     {
-        Task<bool> Execute(int customerId);
+        Task<bool> ExecuteAsync(int customerId);
     }
 }

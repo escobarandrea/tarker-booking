@@ -18,7 +18,7 @@ namespace Tarker.Booking.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateCustomerModel model, [FromServices] ICreateCustomerCommand createCustomerCommand)
         {
-            var data = await createCustomerCommand.Execute(model);
+            var data = await createCustomerCommand.ExecuteAsync(model);
 
             return CreatedAtAction(nameof(Create), ResponseApiService.Response(statusCode: StatusCodes.Status201Created, data: data));
         }
@@ -32,7 +32,7 @@ namespace Tarker.Booking.Api.Controllers
             if (id != model.CustomerId)
                 return BadRequest(ResponseApiService.Response(statusCode: StatusCodes.Status400BadRequest));
 
-            var data = await updateCustomerCommand.Execute(model);
+            var data = await updateCustomerCommand.ExecuteAsync(model);
 
             return Ok(ResponseApiService.Response(statusCode: StatusCodes.Status200OK, data: data));
         }
@@ -43,7 +43,7 @@ namespace Tarker.Booking.Api.Controllers
             if (id <= 0)
                 return BadRequest(ResponseApiService.Response(statusCode: StatusCodes.Status400BadRequest));
 
-            var data = await deleteCustomerCommand.Execute(id);
+            var data = await deleteCustomerCommand.ExecuteAsync(id);
 
             if (!data)
                 return NotFound(ResponseApiService.Response(statusCode: StatusCodes.Status404NotFound));
@@ -54,7 +54,7 @@ namespace Tarker.Booking.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll([FromServices] IGetAllCustomersQuery getAllCustomersQuery)
         {
-            var data = await getAllCustomersQuery.Execute();
+            var data = await getAllCustomersQuery.ExecuteAsync();
 
             if (data == null || data.Count == 0)
                 return NotFound(ResponseApiService.Response(statusCode: StatusCodes.Status404NotFound));
@@ -68,7 +68,7 @@ namespace Tarker.Booking.Api.Controllers
             if (id <= 0)
                 return NotFound(ResponseApiService.Response(statusCode: StatusCodes.Status404NotFound));
 
-            var data = await getCustomerByIdQuery.Execute(id);
+            var data = await getCustomerByIdQuery.ExecuteAsync(id);
 
             if (data == null)
                 return NotFound(ResponseApiService.Response(statusCode: StatusCodes.Status404NotFound));
@@ -79,7 +79,7 @@ namespace Tarker.Booking.Api.Controllers
         [HttpGet("search")]
         public async Task<IActionResult> GetByDocumentNumber([FromQuery] string documentNumber, [FromServices] IGetCustomerByDocumentNumberQuery getCustomerByDocumentNumberQuery)
         {
-            var data = await getCustomerByDocumentNumberQuery.Execute(documentNumber);
+            var data = await getCustomerByDocumentNumberQuery.ExecuteAsync(documentNumber);
 
             if(data == null)
                 return NotFound(ResponseApiService.Response(statusCode: StatusCodes.Status404NotFound));

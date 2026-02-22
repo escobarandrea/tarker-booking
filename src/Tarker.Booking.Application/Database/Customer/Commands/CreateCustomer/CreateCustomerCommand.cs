@@ -5,7 +5,7 @@ namespace Tarker.Booking.Application.Database.Customer.Commands.CreateCustomer
 {
     public class CreateCustomerCommand(IDatabaseService databaseService, IMapper mapper) : ICreateCustomerCommand
     {
-        public async Task<CreateCustomerModel> Execute(CreateCustomerModel model)
+        public async Task<CreateCustomerModel> ExecuteAsync(CreateCustomerModel model)
         {
             var entity = mapper.Map<CustomerEntity>(model);
             await databaseService.Customers.AddAsync(entity);

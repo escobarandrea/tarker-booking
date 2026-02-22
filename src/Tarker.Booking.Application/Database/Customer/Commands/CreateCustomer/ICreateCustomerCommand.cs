@@ -2,6 +2,6 @@
 {
     public interface ICreateCustomerCommand
     {
-        Task<CreateCustomerModel> Execute(CreateCustomerModel model);
+        Task<CreateCustomerModel> ExecuteAsync(CreateCustomerModel model);
     }
 }

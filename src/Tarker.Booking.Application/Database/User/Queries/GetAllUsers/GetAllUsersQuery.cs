@@ -5,7 +5,7 @@ namespace Tarker.Booking.Application.Database.User.Queries.GetAllUsers
 {
     public class GetAllUsersQuery(IDatabaseService databaseService, IMapper mapper) : IGetAllUsersQuery
     {
-        public async Task<List<GetAllUsersModel>> Execute()
+        public async Task<List<GetAllUsersModel>> ExecuteAsync()
         {
             var entities = await databaseService.Users.ToListAsync();
             return mapper.Map<List<GetAllUsersModel>>(entities);

@@ -8,7 +8,7 @@ namespace Tarker.Booking.Application.Database.Customer.Queries.GetCustomerByDocu
 {
     public class GetCustomerByDocumentNumberQuery(IDatabaseService databaseService, IMapper mapper) : IGetCustomerByDocumentNumberQuery
     {
-        public async Task<GetCustomerByDocumentNumberModel> Execute(string documentNumber)
+        public async Task<GetCustomerByDocumentNumberModel> ExecuteAsync(string documentNumber)
         {
             var entity = await databaseService.Customers.FirstOrDefaultAsync(customer => customer.DocumentNumber == documentNumber);            
             return mapper.Map<GetCustomerByDocumentNumberModel>(entity);

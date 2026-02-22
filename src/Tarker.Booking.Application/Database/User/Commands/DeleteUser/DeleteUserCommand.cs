@@ -4,7 +4,7 @@ namespace Tarker.Booking.Application.Database.User.Commands.DeleteUser
 {
     public class DeleteUserCommand(IDatabaseService databaseService) : IDeleteUserCommand
     {
-        public async Task<bool> Execute(int userId)
+        public async Task<bool> ExecuteAsync(int userId)
         {
             var entity = await databaseService.Users.FirstOrDefaultAsync(user => user.UserId == userId);
 

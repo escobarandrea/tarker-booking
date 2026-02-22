@@ -2,6 +2,6 @@
 {
     public interface IGetCustomerByDocumentNumberQuery
     {
-        Task<GetCustomerByDocumentNumberModel> Execute(string documentNumber);
+        Task<GetCustomerByDocumentNumberModel> ExecuteAsync(string documentNumber);
     }
 }

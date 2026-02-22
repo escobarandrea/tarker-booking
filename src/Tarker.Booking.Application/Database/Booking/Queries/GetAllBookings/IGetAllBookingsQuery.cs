@@ -2,6 +2,6 @@
 {
     public interface IGetAllBookingsQuery
     {
-        Task<List<GetAllBookingsModel>> Execute();
+        Task<List<GetAllBookingsModel>> ExecuteAsync();
     }
 }

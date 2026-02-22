@@ -6,6 +6,6 @@ namespace Tarker.Booking.Application.Database.Booking.Queries.GetBookingsByType
 {
     public interface IGetBookingsByTypeQuery
     {
-        Task<List<GetBookingsByTypeModel>> Execute(string type);
+        Task<List<GetBookingsByTypeModel>> ExecuteAsync(string type);
     }
 }

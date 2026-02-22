@@ -2,6 +2,6 @@
 {
     public interface IUpdateUserCommand
     {
-        Task<UpdateUserModel> Execute(UpdateUserModel model);
+        Task<UpdateUserModel> ExecuteAsync(UpdateUserModel model);
     }
 }

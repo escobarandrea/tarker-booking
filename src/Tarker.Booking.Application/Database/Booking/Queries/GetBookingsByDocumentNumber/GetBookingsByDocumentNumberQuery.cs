@@ -4,7 +4,7 @@ namespace Tarker.Booking.Application.Database.Booking.Queries.GetBookingsByDocum
 {
     public class GetBookingsByDocumentNumberQuery(IDatabaseService databaseService) : IGetBookingsByDocumentNumberQuery
     {
-        public async Task<List<GetBookingsByDocumentNumberModel>> Execute(string documentNumber)
+        public async Task<List<GetBookingsByDocumentNumberModel>> ExecuteAsync(string documentNumber)
         {
             var result = await (from bookings in databaseService.Bookings
                                 join customers in databaseService.Customers

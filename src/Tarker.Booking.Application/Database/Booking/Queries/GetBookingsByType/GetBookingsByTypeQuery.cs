@@ -7,7 +7,7 @@ namespace Tarker.Booking.Application.Database.Booking.Queries.GetBookingsByType
 {
     public class GetBookingsByTypeQuery(IDatabaseService databaseService) : IGetBookingsByTypeQuery
     {
-        public async Task<List<GetBookingsByTypeModel>> Execute(string type)
+        public async Task<List<GetBookingsByTypeModel>> ExecuteAsync(string type)
         {
             var result = await (from bookings in databaseService.Bookings
                                 join customers in databaseService.Customers

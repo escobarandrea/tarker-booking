@@ -4,7 +4,7 @@ namespace Tarker.Booking.Application.Database.Booking.Queries.GetAllBookings
 {
     public class GetAllBookingsQuery(IDatabaseService databaseService) : IGetAllBookingsQuery
     {
-        public async Task<List<GetAllBookingsModel>> Execute()
+        public async Task<List<GetAllBookingsModel>> ExecuteAsync()
         {
             var result = await (from bookings in databaseService.Bookings
                                 join customers in databaseService.Customers

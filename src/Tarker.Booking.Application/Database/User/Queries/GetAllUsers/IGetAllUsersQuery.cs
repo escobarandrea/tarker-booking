@@ -2,6 +2,6 @@
 {
     public interface IGetAllUsersQuery
     {
-        Task<List<GetAllUsersModel>> Execute();
+        Task<List<GetAllUsersModel>> ExecuteAsync();
     }
 }

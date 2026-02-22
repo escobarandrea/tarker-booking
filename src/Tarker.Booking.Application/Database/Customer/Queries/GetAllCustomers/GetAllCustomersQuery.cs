@@ -5,7 +5,7 @@ namespace Tarker.Booking.Application.Database.Customer.Queries.GetAllCustomers
 {
     public class GetAllCustomersQuery(IDatabaseService databaseService, IMapper mapper) : IGetAllCustomersQuery
     {
-        public async Task<List<GetAllCustomersModel>> Execute()
+        public async Task<List<GetAllCustomersModel>> ExecuteAsync()
         {
             var entities = await databaseService.Customers.ToListAsync();
             return mapper.Map<List<GetAllCustomersModel>>(entities);

@@ -2,6 +2,6 @@
 {
     public interface IGetBookingsByDocumentNumberQuery
     {
-        Task<List<GetBookingsByDocumentNumberModel>> Execute(string documentNumber);
+        Task<List<GetBookingsByDocumentNumberModel>> ExecuteAsync(string documentNumber);
     }
 }

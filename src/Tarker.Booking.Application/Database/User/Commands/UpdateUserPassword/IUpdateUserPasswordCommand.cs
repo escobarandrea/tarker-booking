@@ -2,6 +2,6 @@
 {
     public interface IUpdateUserPasswordCommand
     {
-        Task<bool> Execute(UpdateUserPasswordModel model);
+        Task<bool> ExecuteAsync(UpdateUserPasswordModel model);
     }
 }

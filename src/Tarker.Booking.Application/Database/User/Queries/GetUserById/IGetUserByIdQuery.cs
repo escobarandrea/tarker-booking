@@ -2,6 +2,6 @@
 {
     public interface IGetUserByIdQuery
     {
-        Task<GetUserByIdModel> Execute(int userId);
+        Task<GetUserByIdModel> ExecuteAsync(int userId);
     }
 }

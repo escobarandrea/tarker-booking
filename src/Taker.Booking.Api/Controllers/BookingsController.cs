@@ -16,7 +16,7 @@ namespace Tarker.Booking.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateBookingModel model, [FromServices] ICreateBookingCommand createBookingCommand)
         {
-            var data = await createBookingCommand.Execute(model);
+            var data = await createBookingCommand.ExecuteAsync(model);
 
             return CreatedAtAction(nameof(Create), ResponseApiService.Response(statusCode: StatusCodes.Status201Created, data: data));
         }
@@ -24,7 +24,7 @@ namespace Tarker.Booking.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll([FromServices] IGetAllBookingsQuery getAllBookingsQuery)
         {
-            var data = await getAllBookingsQuery.Execute();
+            var data = await getAllBookingsQuery.ExecuteAsync();
 
             if (data == null || data.Count == 0)
                 return NotFound(ResponseApiService.Response(statusCode: StatusCodes.Status404NotFound));
@@ -41,9 +41,9 @@ namespace Tarker.Booking.Api.Controllers
                 return BadRequest(ResponseApiService.Response(statusCode: StatusCodes.Status400BadRequest, message: "At least one search parameter must be provided."));            
 
             if (!string.IsNullOrWhiteSpace(documentNumber))
-                data = await getBookingsByDocumentNumber.Execute(documentNumber);
+                data = await getBookingsByDocumentNumber.ExecuteAsync(documentNumber);
             else
-                data = await getBookingsByTypeQuery.Execute(type!);
+                data = await getBookingsByTypeQuery.ExecuteAsync(type!);
         
             if (data == null || data!.Count == 0)
                 return NotFound(ResponseApiService.Response(statusCode: StatusCodes.Status404NotFound));

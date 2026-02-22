@@ -5,7 +5,7 @@ namespace Tarker.Booking.Application.Database.Booking.Commands.CreateBooking
 {
     public class CreateBookingCommand(IDatabaseService databaseService, IMapper mapper) : ICreateBookingCommand
     {
-        public async Task<CreateBookingModel> Execute(CreateBookingModel model)
+        public async Task<CreateBookingModel> ExecuteAsync(CreateBookingModel model)
         {
             var entity = mapper.Map<BookingEntity>(model);
             entity.RegisterDate = DateTime.Now;
