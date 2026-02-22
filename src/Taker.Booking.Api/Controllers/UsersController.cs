@@ -71,7 +71,7 @@ namespace Tarker.Booking.Api.Controllers
         {
             var data = await getAllUsersQuery.Execute();
 
-            if (data == null || !data.Any())
+            if (data == null || data.Count == 0)
                 return NotFound(ResponseApiService.Response(statusCode: StatusCodes.Status404NotFound));
 
             return Ok(ResponseApiService.Response(statusCode: StatusCodes.Status200OK, data: data));
