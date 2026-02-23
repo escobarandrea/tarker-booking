@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
 using Tarker.Booking.Application.Database.Customer.Commands.CreateCustomer;
 using Tarker.Booking.Application.Database.Customer.Commands.DeleteCustomer;
 using Tarker.Booking.Application.Database.Customer.Commands.UpdateCustomer;
@@ -16,16 +17,26 @@ namespace Tarker.Booking.Api.Controllers
     public class CustomersController : ControllerBase
     {
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateCustomerModel model, [FromServices] ICreateCustomerCommand createCustomerCommand)
+        public async Task<IActionResult> Create([FromBody] CreateCustomerModel model, [FromServices] ICreateCustomerCommand createCustomerCommand, [FromServices] IValidator<CreateCustomerModel> validator)
         {
+            var validate = await validator.ValidateAsync(model);
+
+            if(!validate.IsValid)
+                return BadRequest(ResponseApiService.Response(statusCode: StatusCodes.Status400BadRequest, data: validate.Errors));
+
             var data = await createCustomerCommand.ExecuteAsync(model);
 
             return CreatedAtAction(nameof(Create), ResponseApiService.Response(statusCode: StatusCodes.Status201Created, data: data));
         }
 
         [HttpPut("{id:int}")]
-        public async Task<IActionResult> Update(int id, [FromBody] UpdateCustomerModel model, [FromServices] IUpdateCustomerCommand updateCustomerCommand)
+        public async Task<IActionResult> Update(int id, [FromBody] UpdateCustomerModel model, [FromServices] IUpdateCustomerCommand updateCustomerCommand, [FromServices] IValidator<UpdateCustomerModel> validator)
         {
+            var validate = await validator.ValidateAsync(model);
+
+            if (!validate.IsValid)
+                return BadRequest(ResponseApiService.Response(statusCode: StatusCodes.Status400BadRequest, data: validate.Errors));
+
             if (id <= 0)
                 return NotFound(ResponseApiService.Response(statusCode: StatusCodes.Status404NotFound));
 
