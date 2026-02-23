@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 using Tarker.Booking.Application.Database.User.Commands.CreateUser;
 using Tarker.Booking.Application.Database.User.Commands.DeleteUser;
 using Tarker.Booking.Application.Database.User.Commands.UpdateUser;
@@ -17,17 +19,27 @@ namespace Tarker.Booking.Api.Controllers
     public class UsersController : ControllerBase
     {
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateUserModel model, [FromServices] ICreateUserCommand createUserCommand)
+        public async Task<IActionResult> Create([FromBody] CreateUserModel model, [FromServices] ICreateUserCommand createUserCommand, [FromServices] IValidator<CreateUserModel> validator)
         {
+            var validate = await validator.ValidateAsync(model);
+            
+            if(!validate.IsValid)
+                return BadRequest(ResponseApiService.Response(statusCode: StatusCodes.Status400BadRequest, data: validate.Errors));
+
             var data = await createUserCommand.ExecuteAsync(model);
 
             return CreatedAtAction(nameof(Create), ResponseApiService.Response(statusCode: StatusCodes.Status201Created, data: data));
         }
 
         [HttpPut("{id:int}")]
-        public async Task<IActionResult> Update(int id, [FromBody] UpdateUserModel model, [FromServices] IUpdateUserCommand updateUserCommand)
+        public async Task<IActionResult> Update(int id, [FromBody] UpdateUserModel model, [FromServices] IUpdateUserCommand updateUserCommand, [FromServices] IValidator<UpdateUserModel> validator)
         {
-            if(id <= 0)
+            var validate = await validator.ValidateAsync(model);
+
+            if (!validate.IsValid)
+                return BadRequest(ResponseApiService.Response(statusCode: StatusCodes.Status400BadRequest, data: validate.Errors));
+
+            if (id <= 0)
                 return NotFound(ResponseApiService.Response(statusCode: StatusCodes.Status404NotFound));
 
             if (id != model.UserId)
@@ -39,8 +51,13 @@ namespace Tarker.Booking.Api.Controllers
         }
 
         [HttpPatch("{id:int}/password")]
-        public async Task<IActionResult> UpdatePassword(int id, [FromBody] UpdateUserPasswordModel model, [FromServices] IUpdateUserPasswordCommand updateUserPasswordCommand)
+        public async Task<IActionResult> UpdatePassword(int id, [FromBody] UpdateUserPasswordModel model, [FromServices] IUpdateUserPasswordCommand updateUserPasswordCommand, [FromServices] IValidator<UpdateUserPasswordModel> validator)
         {
+            var validate = await validator.ValidateAsync(model);
+
+            if (!validate.IsValid)
+                return BadRequest(ResponseApiService.Response(statusCode: StatusCodes.Status400BadRequest, data: validate.Errors));
+
             if (id <= 0)
                 return NotFound(ResponseApiService.Response(statusCode: StatusCodes.Status404NotFound));
 
@@ -92,8 +109,13 @@ namespace Tarker.Booking.Api.Controllers
         }
 
         [HttpGet("search")]
-        public async Task<IActionResult> GetByCredentials([FromQuery] string username, [FromQuery] string password, [FromServices] IGetUserByUserNameAndPasswordQuery getUserByUserNameAndPasswordQuery)
+        public async Task<IActionResult> GetByCredentials([FromQuery] string username, [FromQuery] string password, [FromServices] IGetUserByUserNameAndPasswordQuery getUserByUserNameAndPasswordQuery, [FromServices] IValidator<(string UserName, string Password)> validator)
         {
+            var validate = await validator.ValidateAsync((username, password));
+
+            if (!validate.IsValid)
+                return BadRequest(ResponseApiService.Response(statusCode: StatusCodes.Status400BadRequest, data: validate.Errors));
+
             var data = await getUserByUserNameAndPasswordQuery.ExecuteAsync(username, password);
 
             if (data == null)
