@@ -18,6 +18,7 @@ using Tarker.Booking.Application.Database.User.Commands.UpdateUserPassword;
 using Tarker.Booking.Application.Database.User.Queries.GetAllUsers;
 using Tarker.Booking.Application.Database.User.Queries.GetUserById;
 using Tarker.Booking.Application.Database.User.Queries.GetUserByUserNameAndPassword;
+using Tarker.Booking.Application.Validators.Booking;
 using Tarker.Booking.Application.Validators.Customer;
 using Tarker.Booking.Application.Validators.User;
 
@@ -57,6 +58,8 @@ namespace Tarker.Booking.Application
 
             services.AddScoped<IValidator<CreateCustomerModel>, CreateCustomerValidator>();
             services.AddScoped<IValidator<UpdateCustomerModel>, UpdateCustomerValidator>();
+
+            services.AddScoped<IValidator<CreateBookingModel>, CreateBookingValidator>();
 
             return services;
         }
