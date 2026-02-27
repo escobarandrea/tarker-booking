@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Tarker.Booking.Application.Exceptions;
 using Tarker.Booking.Application.External.Email;
 using Tarker.Booking.Application.Features;
@@ -6,6 +7,7 @@ using Tarker.Booking.Domain.Models.Email;
 
 namespace Tarker.Booking.Api.Controllers
 {
+    [Authorize]
     [Route("api/v1/[controller]")]
     [ApiController]
     [TypeFilter(typeof(ExceptionManager))]

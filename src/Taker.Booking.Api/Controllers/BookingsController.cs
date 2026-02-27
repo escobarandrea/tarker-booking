@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Tarker.Booking.Application.Database.Booking.Commands.CreateBooking;
 using Tarker.Booking.Application.Database.Booking.Queries.GetAllBookings;
@@ -9,6 +10,7 @@ using Tarker.Booking.Application.Features;
 
 namespace Tarker.Booking.Api.Controllers
 {
+    [Authorize]
     [Route("api/v1/[controller]")]
     [ApiController]
     [TypeFilter(typeof(ExceptionManager))]

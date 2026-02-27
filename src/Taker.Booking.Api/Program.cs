@@ -6,7 +6,7 @@ using Tarker.Booking.External;
 using Tarker.Booking.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddWebApi().AddCommon().AddApplication().AddExternal(builder.Configuration).AddPersistence(builder.Configuration);
+
 builder.Services.AddControllers();
 
 
@@ -26,14 +26,15 @@ if(GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "local")
 else
     builder.Configuration.AddAzureKeyVault(keyVaultUri, new DefaultAzureCredential());
 
-var sql = builder.Configuration["SQLConnectionString"];
-var sendEmail = builder.Configuration["SendAzureEmailKey"];
+builder.Services.AddWebApi().AddCommon().AddApplication().AddExternal(builder.Configuration).AddPersistence(builder.Configuration);
 
 
 // Add services to the container.
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+app.UseAuthentication();
+app.UseAuthorization();
 app.MapControllers();
 app.UseHttpsRedirection();
 
