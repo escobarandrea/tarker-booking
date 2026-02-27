@@ -14,7 +14,7 @@ var keyVaultUrl = builder.Configuration["keyVaultUrl"];
 string GetEnvironmentVariable(string key) => Environment.GetEnvironmentVariable(key) ?? string.Empty;
 
 Uri keyVaultUri = new Uri(keyVaultUrl!);
-if(GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "local")
+if (GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "local")
 {
     string clientId = GetEnvironmentVariable("clientId");
     string tenantId = GetEnvironmentVariable("tenantId");
@@ -31,6 +31,12 @@ builder.Services.AddWebApi().AddCommon().AddApplication().AddExternal(builder.Co
 
 // Add services to the container.
 var app = builder.Build();
+app.UseSwagger();
+app.UseSwaggerUI(options =>
+{
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+    options.RoutePrefix = string.Empty;
+});
 
 // Configure the HTTP request pipeline.
 app.UseAuthentication();
