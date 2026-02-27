@@ -4,8 +4,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Tarker.Booking.Application.External.ApplicationInsights;
 using Tarker.Booking.Application.External.Email;
 using Tarker.Booking.Application.External.GetTokenJwt;
+using Tarker.Booking.External.ApplicationInsights;
 using Tarker.Booking.External.Email;
 using Tarker.Booking.External.GetTokenJwt;
 
@@ -36,6 +38,8 @@ namespace Tarker.Booking.External
             {
                 ConnectionString = configuration["ApplicatinInsightsConnectionString"]
             });
+
+            services.AddSingleton<IInsertApplicationInsightsService, InsertApplicationInsightsService>();
 
             return services;
         }
