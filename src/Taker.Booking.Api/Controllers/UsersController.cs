@@ -9,16 +9,20 @@ using Tarker.Booking.Application.Database.User.Queries.GetAllUsers;
 using Tarker.Booking.Application.Database.User.Queries.GetUserById;
 using Tarker.Booking.Application.Database.User.Queries.GetUserByUserNameAndPassword;
 using Tarker.Booking.Application.Exceptions;
+using Tarker.Booking.Application.External.ApplicationInsights;
 using Tarker.Booking.Application.External.GetTokenJwt;
 using Tarker.Booking.Application.Features;
+using Tarker.Booking.Common.Constants;
+using Tarker.Booking.Domain.Models.ApplicationInsights;
 
 namespace Tarker.Booking.Api.Controllers
 {
+#pragma warning disable
     [Authorize]
     [Route("api/v1/[controller]")]
     [ApiController]
     [TypeFilter(typeof(ExceptionManager))]
-    public class UsersController : ControllerBase
+    public class UsersController( IInsertApplicationInsightsService insertApplicationInsightsService) : ControllerBase
     {
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateUserModel model, [FromServices] ICreateUserCommand createUserCommand, [FromServices] IValidator<CreateUserModel> validator)
@@ -88,6 +92,9 @@ namespace Tarker.Booking.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll([FromServices] IGetAllUsersQuery getAllUsersQuery)
         {
+            var metric = new InsertApplicationInsightsModel(ApplicationInsightsConstants.MetricTypeApiCall, EntitiesConstants.User, nameof(GetAll));
+            insertApplicationInsightsService.Execute(metric);
+
             var data = await getAllUsersQuery.ExecuteAsync();
 
             if (data == null || data.Count == 0)
@@ -99,6 +106,9 @@ namespace Tarker.Booking.Api.Controllers
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById(int id, [FromServices] IGetUserByIdQuery getUserByIdQuery)
         {
+            var metric = new InsertApplicationInsightsModel(ApplicationInsightsConstants.MetricTypeApiCall, EntitiesConstants.User, nameof(GetById));
+            insertApplicationInsightsService.Execute(metric);
+
             if (id <= 0)
                 return NotFound(ResponseApiService.Response(statusCode: StatusCodes.Status404NotFound));
 
@@ -112,8 +122,14 @@ namespace Tarker.Booking.Api.Controllers
 
         [AllowAnonymous]
         [HttpGet("login")]
-        public async Task<IActionResult> Login([FromQuery] string username, [FromQuery] string password, [FromServices] IGetUserByUserNameAndPasswordQuery getUserByUserNameAndPasswordQuery, [FromServices] IValidator<(string UserName, string Password)> validator, [FromServices] IGetTokenJwtService getTokenJwtService)
+        public async Task<IActionResult> Login([FromQuery] string username, [FromQuery] string password, 
+            [FromServices] IGetUserByUserNameAndPasswordQuery getUserByUserNameAndPasswordQuery, 
+            [FromServices] IValidator<(string UserName, string Password)> validator, 
+            [FromServices] IGetTokenJwtService getTokenJwtService)
         {
+            var metric = new InsertApplicationInsightsModel(ApplicationInsightsConstants.MetricTypeApiCall, EntitiesConstants.User, nameof(Login));
+            insertApplicationInsightsService.Execute(metric);
+
             var validate = await validator.ValidateAsync((username, password));
 
             if (!validate.IsValid)
