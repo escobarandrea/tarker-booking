@@ -6,19 +6,12 @@ using Tarker.Booking.Domain.Models.Email;
 
 namespace Tarker.Booking.External.Email
 {
-    public class SendAzureEmailService : ISendAzureEmailService
-    {
-        private readonly IConfiguration _configuration;
-
-        public SendAzureEmailService(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
-
+    public class SendAzureEmailService(IConfiguration configuration) : ISendAzureEmailService
+    {    
         public async Task<bool> ExecuteAsync(SendEmailRequestModel model)
         {
             bool isSent = false;
-            string apiKey = _configuration["SendAzureEmailKey"]!;
+            string apiKey = configuration["SendAzureEmailKey"]!;
 
             var emailClient = new EmailClient(apiKey);
 
